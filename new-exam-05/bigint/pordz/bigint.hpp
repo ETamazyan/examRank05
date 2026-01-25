@@ -23,8 +23,8 @@ class bigint
 		bigint operator+(const bigint& rhs)const;
 		bigint& operator+=(const bigint& rhs);
 
-		bigint operator++()const;
-		bigint& operator++(int);
+		bigint& operator++();
+		bigint operator++(int);
 
 	bool operator>(const bigint& rhs)const;
 	bool operator>=(const bigint& rhs) const;

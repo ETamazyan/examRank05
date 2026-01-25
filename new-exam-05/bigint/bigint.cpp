@@ -87,7 +87,7 @@ bool bigint::operator<(const bigint& other)const
 {
 	if(this->str.size()!=other.str.size())
 		return(this->str.size()<other.str.size());
-	return(this->str<other.str);
+	return(this->str<other.str); 
 }
 bool bigint::operator<=(const bigint& other)const
 {

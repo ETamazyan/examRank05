@@ -19,7 +19,7 @@ std::string bigint::get_val() const
 }
 
 // check this function later, i don't know him
-int	stringToInt(std::string str) const
+int	bigint::stringToInt(std::string str) const
 {
 	std::stringstream ss(str);
 	int num;
@@ -42,7 +42,7 @@ bigint bigint::operator+(const bigint& rhs)const
 		if (i >= 0)
 			sum += val[i--] - '0';
 		if (j >= 0)
-			sum += rhs.val[j--] = '0';
+			sum += rhs.val[j--] - '0';
 		result.val.insert(result.val.begin(), (sum % 10) + '0');
 		temp = sum / 10;
 	}
@@ -51,17 +51,17 @@ bigint bigint::operator+(const bigint& rhs)const
 
 bigint& bigint::operator+=(const bigint& rhs)
 {
-	(*this) = *this + other;
-	return (*this)
+	(*this) = *this + rhs;
+	return (*this);
 }
 
-bigint& bigint::operator++()
+bigint& bigint::operator++() // ++x
 {
 	(*this) += bigint(1);
 	return (*this);
 }
 
-bigint bigint::operator++(int) //++x
+bigint bigint::operator++(int) //x++
 {
 	bigint temp = *this;
 	++(*this);
@@ -80,14 +80,14 @@ bool bigint::operator>=(const bigint& rhs) const
 
 bool bigint::operator<(const bigint& rhs)const
 {
-	if(rhs.val.size() != *this.val.size())
-		return (rhs.val.size() < *this.val.size());
-	return ( rhs.val < *this->val);
+	if(rhs.val.size() != (*this).val.size())
+		return (rhs.val.size() < (*this).val.size());
+	return (this->val < rhs.val);
 }
 
 bool bigint::operator<=(const bigint& rhs)const
 {
-	return (*this.val == rhs.val);
+	return (!(*this > rhs));
 }
 
 bool bigint::operator==(const bigint& rhs)const
