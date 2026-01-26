@@ -70,6 +70,8 @@ vect2 vect2::operator++(int)
 	return(tmp);
 }
 
+// continue from this
+
 vect2 vect2::operator*(int num)const
 {
 	vect2 tmp =(*this);
