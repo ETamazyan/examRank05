@@ -1,61 +1,43 @@
 #pragma once
 
-#include <string>
-#include <iostream>
 #include <sstream>
+#include <ostream>
+#include <string>
 
 class bigint
 {
 	private:
-		std::string val;
-
+		std::string str;
 	public:
 		bigint();
-		bigint(const bigint& other);
 		bigint(unsigned int num);
+		bigint (const bigint& other);
 		bigint& operator=(const bigint& rhs);
 		~bigint();
 
-		std::string get_val() const;
-		int	stringToInt(std::string str) const;
-
-
-		bigint operator+(const bigint& rhs)const;
-		bigint& operator+=(const bigint& rhs);
+		bigint operator+(const bigint& other);
+		bigint& operator+=(const bigint& other);
 
 		bigint& operator++();
 		bigint operator++(int);
 
-	bool operator>(const bigint& rhs)const;
-	bool operator>=(const bigint& rhs) const;
-	bool operator<(const bigint& rhs)const;
-	bool operator<=(const bigint& rhs)const;
-	bool operator==(const bigint& rhs)const;
-	bool operator!=(const bigint& rhs)const;
+		bool operator<(const bigint& rhs) const;
+		bool operator<=(const bigint& rhs) const;
+		bool operator>(const bigint& rhs) const;
+		bool operator>=(const bigint& rhs) const;
+		bool operator==(const bigint& rhs) const;
+		bool operator!=(const bigint& rhs) const;
 
+		bigint operator<<(unsigned int count) const;
+		bigint& operator<<=(unsigned int count);
+		bigint operator>>(unsigned int count) const;
+		bigint& operator>>=(unsigned int count);
 
+		bigint operator<<(const bigint& rhs) const;
+		bigint& operator<<=(const bigint& rhs);
+		bigint operator>>(const bigint& rhs) const;
+		bigint& operator>>=(const bigint& rhs);
 
-
-
-
-
-
-		// std::string get_val()const;
-		// int bigint::stringToInt(std::string s) const
-
-		// bigint operator+(const bigint& other)const;
-		// bigint& operator +=(const bigint& other);
-
-		// bigint& operator++(); //x++
-		// bigint operator++(int); //++x
-
-		// bool operator>(const bigint& other)const;
-		// bool operator>=(const bigint& other)const;
-		// bool operator<(const bigint& other)const;;
-		// bool operator<=(const bigint& other)const;
-		// bool operator==(const bigint& other)const;
-		// bool operator!=(const bigint& other)const;
-
+		// + += ++ ++, < > <= >= == !=, << <<= >> >>=, << <<= >> >>=
+		// getStr, stringToInt, ostream,
 };
-
-std::ostream& operator<<(std::ostream& os, const bigint& obj);

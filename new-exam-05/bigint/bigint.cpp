@@ -72,17 +72,6 @@ bigint bigint::operator++(int)
 	return(tmp);
 }
 
-bool bigint::operator>(const bigint& other)const
-{
-	return(other < (*this));
-
-}
-
-bool bigint::operator>=(const bigint& other)const
-{
-	return(!(*this < other));
-}
-
 bool bigint::operator<(const bigint& other)const
 {
 	if(this->str.size()!=other.str.size())
@@ -94,6 +83,16 @@ bool bigint::operator<=(const bigint& other)const
 	return(!(*this > other));
 }
 
+bool bigint::operator>(const bigint& other)const
+{
+	return(other < (*this));
+
+}
+
+bool bigint::operator>=(const bigint& other)const
+{
+	return(!(*this < other));
+}
 
 bool bigint::operator==(const bigint& other)const
 {
@@ -120,6 +119,14 @@ bigint bigint::operator>>(unsigned int n)const
 		tmp.str.erase(tmp.str.size() - n,n);
 	return(tmp);
 }
+
+
+bigint& bigint::operator>>=(const bigint& other)
+{
+	(*this)=(*this)>>stringToInt(other.str);
+        return(*this);
+}
+
 bigint& bigint::operator<<=(unsigned int n)
 {
 	(*this)=(*this)<<n;
@@ -134,12 +141,6 @@ bigint bigint::operator<<(unsigned int n)const
 	return(tmp);
 }
 
-
-bigint& bigint::operator>>=(const bigint& other)
-{
-	(*this)=(*this)>>stringToInt(other.str);
-        return(*this);
-}
 bigint bigint::operator>>(const bigint& other)const
 {
 	bigint tmp = *this;
@@ -175,28 +176,3 @@ std::ostream& operator<<(std::ostream& os, const bigint& other)
 
 
 
-
-
-/*bigint bigint::operator+(const bigint& other) const
-{
-    bigint result;
-    result.str.clear();
-
-    int i = other.str.size() - 1;
-    int j = this->str.size() - 1;
-    int carry = 0;
-
-    while (i >= 0 || j >= 0 || carry)
-    {
-        std::cout<<"bulki\n"<<std::endl;
-        int sum = carry;
-        if(j >= 0)
-        sum+= this->str[j--] - '0';
-        if(i>=0)
-        sum += other.str[i--] - '0';
-        result.str.insert(result.str.begin(), (sum % 10) + '0');
-        carry = sum / 10;
-    }
-    //result.removeLeadingZeros();
-    return(result);
-}*/

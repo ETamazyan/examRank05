@@ -1,200 +1,60 @@
 #include "bigint.hpp"
 
-bigint::bigint():val("0"){}
+bigint::bigint():str("0"){}
 
-bigint::bigint(const bigint& other):val(other.val){};
+// bigint::bigint(unsigned int num)
+// {
+// 	std::stringstream ss;
+// 	ss << num;
+// 	ss.str();
+// }
 
-bigint::bigint(unsigned int num)
+bigint::bigint(const bigint& other):str(other.str){}
+
+bigint& bigint::operator=(const bigint& rhs)
 {
-	std::stringstream ss;
-	ss << num;
-	this->val = ss.str();
-}
-//operator +,+=
-
-
-std::string bigint::get_val() const
-{
-	return (this -> val);
-}
-
-// check this function later, i don't know him
-int	bigint::stringToInt(std::string str) const
-{
-	std::stringstream ss(str);
-	int num;
-	ss >> num;
-	return (num);
+	if(this != &rhs)
+		this->str = rhs.str;
+	return (*this);
 }
 
-bigint bigint::operator+(const bigint& rhs)const
+bigint bigint::operator+(const bigint& other)
 {
 	bigint result;
-	result.val.clear();
+	result.str.clear();
 
-	int i = val.size() - 1;
-	int j = rhs.val.size() - 1;
+	int i = str.size() - 1;
+	int j = other.str.size() - 1;
 	int temp = 0;
 
-	while (i >= 0 || j >= 0 || temp)
+	while(i >= 0 || j >= 0 || temp)
 	{
 		int sum = temp;
 		if (i >= 0)
-			sum += val[i--] - '0';
+			sum += str[i--] - '0';
 		if (j >= 0)
-			sum += rhs.val[j--] - '0';
-		result.val.insert(result.val.begin(), (sum % 10) + '0');
+			sum += str[j--] - '0';
+		result.str.insert(result.str.begin(), (sum % 10) + '0');
 		temp = sum / 10;
 	}
-	return result;
+	return (result);
 }
 
-bigint& bigint::operator+=(const bigint& rhs)
-{
-	(*this) = *this + rhs;
-	return (*this);
-}
-
-bigint& bigint::operator++() // ++x
-{
-	(*this) += bigint(1);
-	return (*this);
-}
-
-bigint bigint::operator++(int) //x++
-{
-	bigint temp = *this;
-	++(*this);
-	return (temp);
-
-}
-
-bool bigint::operator>(const bigint& rhs)const
-{
-	return (rhs < (*this));
-}
-bool bigint::operator>=(const bigint& rhs) const
-{
-	return (!( *this < rhs));
-}
-
-bool bigint::operator<(const bigint& rhs)const
-{
-	if(rhs.val.size() != (*this).val.size())
-		return (rhs.val.size() < (*this).val.size());
-	return (this->val < rhs.val);
-}
-
-bool bigint::operator<=(const bigint& rhs)const
-{
-	return (!(*this > rhs));
-}
-
-bool bigint::operator==(const bigint& rhs)const
-{
-	return (val == rhs.val);
-}
-bool bigint::operator!=(const bigint& rhs)const
-{
-	return (!(val == rhs.val));
-}
-
-
-
-
-
-
-
-// bigint bigint::operator+(const bigint& other)const
-// {
-// 	bigint result;
-// 	result.val.clear();
-
-// 	int i = val.size() - 1;
-// 	int j = other.val.size() - 1;
-// 	int temp = 0;
-
-// 	while(i >= 0 || j >= 0 || temp)
-// 	{
-// 		int sum = temp;
-// 		if (i >= 0)
-// 			sum += val[i--] - '0';
-// 		if (j >= 0)
-// 			sum += other.val[j--] - '0';
-// 		result.val.insert(result.val.begin(), (sum % 10) + '0');
-// 		temp = sum / 10;
-// 	}
-// 	return (result);
-// }
-
-// bigint& bigint::operator+=(const bigint& other)
-// {
-// 	(*this) = (*this) + other;
-// 	return (*this)
-// }
-
-// bigint& bigint::operator++() // prefix
-// {
-// 	(*this) += bigint(1);
-// 	return (*this);
-// }
-
-// bigint bigint::operator++(int)
-// {
-// 	bigint temp = *this;
-// 	++(*this);
-// 	return (temp);
-// }
-
-// bigint& bigint::operator=(const bigint& rhs)
-// {
-// 	if (this != &rhs)
-// 		this->val = rhs.val;
-// 	return *this;
-// }
-
-// std::string bigint::get_val() const {return val;}
-
-// // opertores
-// bool bigint::operator>(const bigint& other)const
-// {
-// 	return(other < (*this));
-// }
-
-// bool bigint::operator>=(const bigint& other)const
-// {
-// 	return (other > (*this)); // check
-// 		// return(!(*this < other));
-// }
-
-// bool bigint::operator<(const bigint& other)const
-// {
-// 	if(val.size() != other.val.size())
-// 		return (val.size() < other.val.size());
-// 	return (val < other.val);
-// }
-
-// bool bigint::operator<=(const bigint& other)const
-// {
-// 	return (!(*this > other));
-// }
-
-// bool bigint::operator==(const bigint other)const
-// {
-// 	return (val == other.val);
-// }
-
-// bool bigint::operator!=(const bigint other)const
-// {
-// 	return (!(*this == other));
-// }
-
-// opertores
-
-std::ostream& operator<<(std::ostream &os, const bigint &obj)
-{
-	os << obj.get_val();
-	return(os);
-}
 
 bigint::~bigint(){}
+
+// bigint& operator+=(const bigint& other)
+// str + str?
+
+bigint& bigint::operator++()
+{
+	*this = *this + bigint(1);
+	return (*this);	
+}
+
+bigint bigint::operator++(int)
+{
+	bigint temp = *this;
+	*this = *this + bigint(1);
+	return (temp);
+}

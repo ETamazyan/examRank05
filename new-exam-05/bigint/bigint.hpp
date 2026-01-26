@@ -31,15 +31,15 @@ class bigint
 	bool operator==(const bigint& other)const;
 	bool operator!=(const bigint& other)const;
 
-	bigint& operator>>=(unsigned int);
 	bigint operator>>(unsigned int)const;
-	bigint& operator<<=(unsigned int);
+	bigint& operator>>=(unsigned int);
 	bigint operator<<(unsigned int)const;
+	bigint& operator<<=(unsigned int);
 
-	bigint& operator>>=(const bigint& other);
 	bigint operator>>(const bigint& other)const;
-	bigint& operator<<=(const bigint& other);
+	bigint& operator>>=(const bigint& other);
 	bigint operator<<(const bigint& other)const;
+	bigint& operator<<=(const bigint& other);
 
 	std::string get_str()const;
 	int stringToInt(std::string s)const;
