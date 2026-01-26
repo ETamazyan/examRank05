@@ -11,7 +11,6 @@
 		this->y=other.y;
 	}
 	return(*this);
-
 }
 vect2::vect2(int num1,int num2):x(num1),y(num2){}
 
@@ -21,19 +20,14 @@ int& vect2:: operator[](int index)
 		return(this->x);
 	return(this->y);
 }
+
 int vect2:: operator[](int index)const
 {
 	if(index == 0)
                 return(this->x);
         return(this->y);
-
 }
 
-std::ostream& operator<<(std::ostream& os,const vect2& other)
-{
-	os<<"{" << other[0] << ", " << other[1] << "}";
-	return(os);
-}
 
 vect2& vect2::operator++()
 {
@@ -41,6 +35,7 @@ vect2& vect2::operator++()
 	this->y+=1;
 	return(*this);
 }
+
 vect2 vect2::operator++(int)
 {
 	vect2 tmp =(*this);
@@ -55,19 +50,14 @@ vect2& vect2::operator--()
         return(*this);
 
 }
+
 vect2 vect2::operator--(int)
 {
 	vect2 tmp =(*this);
         --(*this);
         return(tmp);
 }
-vect2 vect2::operator+(const vect2& other)const
-{
-	vect2 tmp=(*this);
-	tmp.x=tmp.x+other.x;
-	tmp.y=tmp.y+other.y;
-	return(tmp);
-}
+
 vect2 vect2::operator*(const vect2& other)const
 {
 	 vect2 tmp=(*this);
@@ -75,6 +65,15 @@ vect2 vect2::operator*(const vect2& other)const
         tmp.y=tmp.y*other.y;
         return(tmp);
 }
+
+vect2 vect2::operator+(const vect2& other)const
+{
+	vect2 tmp=(*this);
+	tmp.x=tmp.x+other.x;
+	tmp.y=tmp.y+other.y;
+	return(tmp);
+}
+
 vect2 vect2::operator-(const vect2& other)const
 {
 	 vect2 tmp=(*this);
@@ -89,18 +88,21 @@ vect2& vect2::operator+=(const vect2& other)
 	this->y=this->y+other.y;
 	return(*this);
 }
+
 vect2& vect2::operator-=(const vect2& other)
 {
 	this->x=this->x-other.x;
         this->y=this->y-other.y;
         return(*this);
 }
+
 vect2& vect2::operator*=(const vect2& other)
 {
 	this->x=this->x*other.x;
         this->y=this->y*other.y;
         return(*this);
 }
+
 vect2 vect2::operator-()const
 {
 	vect2 t=*this;
@@ -108,6 +110,7 @@ vect2 vect2::operator-()const
 	t[1]=-t[1];
 	return(t);
 }
+
 vect2 vect2::operator*(int num)const
 {
 	vect2 tmp =(*this);
@@ -115,12 +118,14 @@ vect2 vect2::operator*(int num)const
 	tmp.y=num*tmp.y;
 	return(tmp);
 }
+
 vect2& vect2::operator*=(int num)
 {
 	 this->x=this->x*num;
         this->y=this->y*num;
         return(*this);
 }
+
 vect2 operator*(int num,const vect2& other)
 {
 	vect2 o =other;
@@ -137,3 +142,8 @@ bool vect2::operator!=(const vect2& other)
 	return(!(*this==other));
 }
 
+std::ostream& operator<<(std::ostream& os,const vect2& other)
+{
+	os<<"{" << other[0] << ", " << other[1] << "}";
+	return(os);
+}

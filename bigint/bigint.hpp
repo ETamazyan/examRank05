@@ -43,7 +43,6 @@ class bigint
 
 	std::string get_str()const;
 	int stringToInt(std::string s)const;
-
 };
 
 std::ostream& operator<<(std::ostream& os,const bigint& other);

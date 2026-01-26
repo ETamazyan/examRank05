@@ -72,6 +72,9 @@ bigint bigint::operator++(int)
 	return(tmp);
 }
 
+// **** operator bool *****
+// **** operator bool *****
+
 bool bigint::operator<(const bigint& other)const
 {
 	if(this->str.size()!=other.str.size())
@@ -103,12 +106,9 @@ bool bigint::operator!=(const bigint& other)const
 	return(!(this->str == other.str));
 }
 
+// ****** bigint uint ******
+// ****** bigint uint ******
 
-bigint& bigint::operator>>=(unsigned int n)
-{
-	(*this)=(*this)>>n;
-	return(*this);
-}
 bigint bigint::operator>>(unsigned int n)const
 {
 	bigint tmp = *this;
@@ -120,18 +120,12 @@ bigint bigint::operator>>(unsigned int n)const
 	return(tmp);
 }
 
-
-bigint& bigint::operator>>=(const bigint& other)
+bigint& bigint::operator>>=(unsigned int n)
 {
-	(*this)=(*this)>>stringToInt(other.str);
-        return(*this);
-}
-
-bigint& bigint::operator<<=(unsigned int n)
-{
-	(*this)=(*this)<<n;
+	(*this)=(*this)>>n;
 	return(*this);
 }
+
 bigint bigint::operator<<(unsigned int n)const
 {
 	bigint tmp = (*this);
@@ -141,24 +135,41 @@ bigint bigint::operator<<(unsigned int n)const
 	return(tmp);
 }
 
+bigint& bigint::operator<<=(unsigned int n)
+{
+	(*this)=(*this)<<n;
+	return(*this);
+}
+
+// ****** bigint ******
+// ****** bigint ******
+
 bigint bigint::operator>>(const bigint& other)const
 {
 	bigint tmp = *this;
 	(tmp)=(tmp)>>stringToInt(other.str);
         return(tmp);
 }
-bigint& bigint::operator<<=(const bigint& other)
-{
-	 (*this)=(*this)<<stringToInt(other.str);
-        return(*this);
 
+bigint& bigint::operator>>=(const bigint& other)
+{
+	(*this)=(*this)>>stringToInt(other.str);
+        return(*this);
 }
+
 bigint bigint::operator<<(const bigint& other)const
 {
 
 	 bigint tmp = *this;
         (tmp)=(tmp)<<stringToInt(other.str);
         return(tmp);
+
+}
+
+bigint& bigint::operator<<=(const bigint& other)
+{
+	 (*this)=(*this)<<stringToInt(other.str);
+        return(*this);
 
 }
 
