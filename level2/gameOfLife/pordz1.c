@@ -105,57 +105,12 @@ char **new_gen(char **new_board,int width,int high)
         free_board(new_board,high);
         return(board);
     }
-    // void free_board(char **new_board,int height)
-    // {
-    //     for(int i =0;i<height;i++)
-    //         free(new_board[i]);
-    //     free(new_board);
-    // }
-    // char **creat_board(int width,int height)
-    // {
-    //     char **new_board = calloc(height,sizeof(char *));//calloc
-    //     if(!new_board)
-    //         return(NULL);
-    
-    //     for (int i =0;i<height;i++)
-    //     {
-    //        new_board[i]=calloc(width,sizeof(char));//calloc
-    //        for(int j =0;j<width;j++)
-    //         new_board[i][j]=' ';
-    //     }
-    //     return(new_board);
-    // }
-    // char **search_draw(char **board,int width,int height)
-    // {
-    //     char n;//arac iniiti
-    //     int i =0;
-    //     int j =0;
-    //     int draw=0;
-    
-    //     while(read(STDIN_FILENO,&n,1) > 0) //>0
-    //     {
-    //         if(n == 'x')
-    //             draw=!draw;
-    //         else if(n == 'a' && j  > 0)//j>0 only
-    //             j--;
-    //         else if(n == 'w' && i > 0)//i>0 only
-    //             i--;
-    //         else if(n == 's' && i + 1 < height)
-    //             i++;
-    //         else if(n == 'd' && j + 1 < width)
-    //             j++;
-    //         if(draw)
-    //             board[i][j]='0';
-    //     }
-    //     return(board);
-    // }
 
 int main(int argc,char **argv)
 {
   //  (void)argv;
     if(argc == 4)
     {
-        printf("bulki\n");
         int width = atoi(argv[1]);
         int high = atoi(argv[2]);
         int iter=atoi(argv[3]);

@@ -2,7 +2,6 @@
 
 int alg_bsq(t_map *map)
 {
-    printf("bulki\n");
     int **ip=calloc(map->row,sizeof(int *));
         if(!ip)
             return(0);

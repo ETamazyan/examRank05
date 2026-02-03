@@ -81,7 +81,6 @@ static int load_map(FILE *file,t_map *map)
              line[--len]='\0';
         if(row >= map->row)
         {
-            printf("bulki\n");
 
         return(free(line),0);
         }

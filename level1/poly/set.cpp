@@ -1,9 +1,10 @@
 #include "set.hpp"
 #include "iostream"
 
-set::~set(){}
 set::set(const set& other):bag(other.bag){}
-set::set(searchable_bag& other):bag(other){std::cout<<"bulki\n";}
+
+set::set(searchable_bag& other):bag(other){}
+
 set& set::operator=(const set& other)
 {
     if(this!=&other)
@@ -36,3 +37,5 @@ searchable_bag& set::get_bag()const
 {
     return(this->bag);
 }
+
+set::~set(){}

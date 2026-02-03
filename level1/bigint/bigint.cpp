@@ -117,10 +117,7 @@ bool bigint::operator!=(const bigint& rhs)const
 bigint bigint::operator>>(unsigned int count)const
 {
 	bigint temp = *this;
-	if (temp.digits.size() < count)
-			temp.digits = "0";
-	temp.digits.erase(temp.digits.size() - count, count);
-	return temp;
+	if ()
 }
 
 bigint& bigint::operator>>=(unsigned int count)
@@ -132,10 +129,7 @@ bigint& bigint::operator>>=(unsigned int count)
 bigint bigint::operator<<(unsigned int count)const
 {
 	bigint temp = *this;
-	if (temp.digits == "0")
-		return (*this);
-	temp.digits.append(count, '0');
-	return (temp);
+	if()
 }
 bigint& bigint::operator<<=(unsigned int count)
 {
@@ -144,6 +138,19 @@ bigint& bigint::operator<<=(unsigned int count)
 }
 
 //bigint 
+
+bigint bigint::operator<<(const bigint& rhs)const
+{
+	bigint temp = *this;
+	temp = temp << stringToInt(rhs.digits);
+	return(temp);
+}
+bigint& bigint::operator<<=(const bigint& rhs)
+{
+	*this = *this << stringToInt(rhs.digits);
+	return (*this);
+}
+
 bigint bigint::operator>>(const bigint& rhs)const
 {
 	bigint temp = *this;
@@ -157,17 +164,7 @@ bigint& bigint::operator>>=(const bigint& rhs)
 	return (*this);
 }
 
-bigint bigint::operator<<(const bigint& rhs)const
-{
-	bigint temp = *this;
-	temp = temp << stringToInt(rhs.digits);
-	return(temp);
-}
-bigint& bigint::operator<<=(const bigint& rhs)
-{
-	*this = *this << stringToInt(rhs.digits);
-	return (*this);
-}
+
 
 std::ostream& operator<<(std::ostream& os, const bigint& obj)
 {
