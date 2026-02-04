@@ -7,24 +7,25 @@ searchable_tree_bag& searchable_tree_bag::operator=(const searchable_tree_bag& r
 {
 	if (this != &rhs)
 		tree_bag::operator=(rhs);
-	return *this;
-}
-
-bool searchable_tree_bag::has(int value)
-{
-	return (search(tree, value));
-}
-bool searchable_tree_bag::search(node * node, int value) const
-{
-	if (!node)
-		return (false);
-	else if (node->value == value)
-		return (true);
-	else if (node-> value < value)
-		return (search(node->r, value));
-	else if (node-> value > value)
-		return (search(node->l, value));
-	return (false);
+	return (*this);
 }
 
 searchable_tree_bag::~searchable_tree_bag(){}
+
+bool searchable_tree_bag::search(node* node, int value) const
+{
+	if (!value)
+		return false;
+	else if(value = node->value)
+		return (true);
+	else if (node->value > value)
+		return (search(node->l, value));
+	else if  (node->value < value)
+		return (search(node->r, value));
+	return (false);
+}
+	
+bool searchable_tree_bag::has(int value) const
+{
+	return (search(tree, value));
+}

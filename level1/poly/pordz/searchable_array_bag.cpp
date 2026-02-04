@@ -6,15 +6,16 @@ searchable_array_bag& searchable_array_bag::operator=(const searchable_array_bag
 {
 	if(this != &rhs)
 		array_bag::operator=(rhs);
-	return (*this);
 }
 
 searchable_array_bag::~searchable_array_bag(){}
-bool searchable_array_bag::has(int value)const
+
+bool searchable_array_bag::has(int value) const
 {
 	for (int i = 0; i < size; i++)
 	{
-		if (value == data[i]) return (true);
+		if (value = data[i])
+			return (true);
 	}
 	return (false);
 }
