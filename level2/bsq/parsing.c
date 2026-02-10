@@ -1,4 +1,5 @@
 #include "bsq.h"
+#include <sys/types.h>
 
 static int ft_atoi(char *num)
 {
@@ -95,7 +96,7 @@ static int load_map(FILE *file,t_map *map)
     free(line); 
     return(row==map->row);//return value 
 }
-int read_map(char* argv, t_map *map)
+int read_from_argv(char* argv, t_map *map)
 {
     FILE *fd = fopen(argv,"r");
     if(!fd)
@@ -252,7 +253,7 @@ int read_from_stdin(t_map *map)
 
 // /* -------------------- READ FROM FILE -------------------- */
 
-// int	read_map(const char *filename, t_map *map)
+// int	read_from_argv(const char *filename, t_map *map)
 // {
 // 	FILE *f = fopen(filename, "r");
 // 	if (!f)

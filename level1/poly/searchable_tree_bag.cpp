@@ -13,13 +13,6 @@ searchable_tree_bag &searchable_tree_bag::operator=(const searchable_tree_bag &o
 
 bool searchable_tree_bag::search(node *node, const int value) const
 {
-    //     	if (node == NULL)
-    // 		return (false);
-    // 	if (node->value == value)
-    // 		return (true);
-    // 	else if (value < node->value)
-    // 		return (_search(node->l, value));
-    // 	return (_search(node->r, value));
     if (!node)
         return (false);
     else if (node->value == value)

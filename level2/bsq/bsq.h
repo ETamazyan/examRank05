@@ -15,7 +15,7 @@ typedef struct s_map
 } t_map;
 
 int read_from_stdin(t_map *map);
-int read_map( char* argv, t_map *map);//const char*
+int read_from_argv( char* argv, t_map *map);//const char*
 int alg_bsq(t_map *map);
 
 void free_map(t_map *map);
