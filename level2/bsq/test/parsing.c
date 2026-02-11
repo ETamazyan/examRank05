@@ -30,25 +30,19 @@ static int	store_data(FILE *f, t_map *map)
 			map->col = len;
 		else if (map->col != (int)len)
 			return (free(line), free_map(map), 0);
-
 		map->data[r] = malloc(map->col + 1);
 		if (!map->data[r])
 			return (free(line), free_map(map), 0);
-
 		for (int i = 0; i < map->col; i++)
 			if (line[i] == map->empty || line[i] == map->obst)
 				map->data[r][i] = line[i];
 			else
 				return (free(line), free_map(map), 0);
-
 		map->data[r++][map->col] = '\0';
 	}
 	free(line);
 	return (r == map->row);
 }
-
-
-
 
 static int parse_map(FILE *file, t_map *map)
 {
@@ -98,3 +92,5 @@ int read_from_stdin(t_map *map)
 	}
 	return (store_data(stdin, map));
 }
+
+
