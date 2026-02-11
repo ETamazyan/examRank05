@@ -9,6 +9,47 @@ int ft_atoi(char *str)
 	return (res);
 }
 
+static int	load_map_body(FILE *f, t_map *map)
+{
+	char	*line = NULL;
+	size_t	n = 0;
+	ssize_t	len;
+	int		r = 0;
+
+	map->data = calloc(map->row + 1, sizeof(char *));
+	if (!map->data)
+		return (0);
+
+	while ((len = getline(&line, &n, f)) != -1)
+	{
+		if (line[len - 1] == '\n')
+			line[--len] = '\0';
+		if (r >= map->row)
+			return (free(line), free_map(map), 0);
+		if (map->col == 0)
+			map->col = len;
+		else if (map->col != (int)len)
+			return (free(line), free_map(map), 0);
+
+		map->data[r] = malloc(map->col + 1);
+		if (!map->data[r])
+			return (free(line), free_map(map), 0);
+
+		for (int i = 0; i < map->col; i++)
+			if (line[i] == map->empty || line[i] == map->obs)
+				map->data[r][i] = line[i];
+			else
+				return (free(line), free_map(map), 0);
+
+		map->data[r++][map->col] = '\0';
+	}
+	free(line);
+	return (r == map->row);
+}
+
+
+
+
 static int parse_map(FILE *file, t_map *map)
 {
 	char *line = NULL;

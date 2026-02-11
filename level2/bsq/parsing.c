@@ -1,34 +1,59 @@
 #include "bsq.h"
 #include <sys/types.h>
 
-static int ft_atoi(char *num)
-{
-    int sign = 1;
-    int res = 0;
 
-    if(*num == '-')
-    {
-        sign = -1;
-        num++;
-    }
-    else if(*num == '+')
-        num++;
-    while(*num && (*num >= '0' && *num <= '9'))
-    {
-        res = 10 * res + (*num - '0');
-        num++;
-    }
-    return (sign * res);
+int ft_atoi(char *str)
+{
+    int res = 0;
+    while (*str >= '0' && *str <= '9')
+        res = res * 10 + (*str++ - '0');
+    return res;
 }
 
-// int ft_atoi(char *str)
-// {
-//     int res = 0;
-//     while (*str >= '0' && *str <= '9')
-//         res = res * 10 + (*str++ - '0');
-//     return res;
-// }
+static int  fail(char *line, t_map *map)
+{
+    free(line);
+    free_map(map);
+    return (0);
+}
 
+static int	load_map_body(FILE *f, t_map *map)
+{
+	char	*line = NULL;
+	size_t	n = 0;
+	ssize_t	len;
+	int		r = 0;
+
+	map->grid = calloc(map->row + 1, sizeof(char *));
+	if (!map->grid)
+		return (0);
+
+	while ((len = getline(&line, &n, f)) != -1)
+	{
+		if (line[len - 1] == '\n')
+			line[--len] = '\0';
+		if (r >= map->row)
+			return (free(line), free_map(map), 0);
+		if (map->col == 0)
+			map->col = len;
+		else if (map->col != (int)len)
+			return (free(line), free_map(map), 0);
+
+		map->grid[r] = malloc(map->col + 1);
+		if (!map->grid[r])
+			return (free(line), free_map(map), 0);
+
+		for (int i = 0; i < map->col; i++)
+			if (line[i] == map->empty || line[i] == map->obs)
+				map->grid[r][i] = line[i];
+			else
+				return (free(line), free_map(map), 0);
+
+		map->grid[r++][map->col] = '\0';
+	}
+	free(line);
+	return (r == map->row);
+}
 
 static int pars_map(FILE *file, t_map *map)
 {
@@ -71,7 +96,6 @@ int read_from_argv(char* argv, t_map *map)
     }
     fclose(fd);
     return(1);
-
 }
 
 int read_from_stdin(t_map *map)
@@ -88,7 +112,27 @@ int read_from_stdin(t_map *map)
 // ******** ARCHIVE ********
 /*
 
+// // load map has gone
 
+// static int ft_atoi(char *num)
+// {
+//     int sign = 1;
+//     int res = 0;
+
+//     if(*num == '-')
+//     {
+//         sign = -1;
+//         num++;
+//     }
+//     else if(*num == '+')
+//         num++;
+//     while(*num && (*num >= '0' && *num <= '9'))
+//     {
+//         res = 10 * res + (*num - '0');
+//         num++;
+//     }
+//     return (sign * res);
+// }
 
 // static int pars_map(FILE *file, t_map *map)
 // {
