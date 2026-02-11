@@ -1,6 +1,6 @@
  #include "bsq.h"
 
-free_map(t_map *map)
+void free_map(t_map *map)
 {
 	if (!map || !map->data)
 		return ;
@@ -9,12 +9,10 @@ free_map(t_map *map)
 	free(map->data);
 }
 
-print_map(t_map *map)
+void print_map(t_map *map)
 {
 	for(int i = 0; i < map->row; i++)
-	{
 		fprintf(stdout, "%s\n", map->data[i]);
-	}
 }
 
 int main(int argc, char **argv)

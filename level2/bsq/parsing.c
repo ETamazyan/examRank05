@@ -17,7 +17,7 @@ static int  fail(char *line, t_map *map)
     return (0);
 }
 
-static int	load_map_body(FILE *f, t_map *map)
+static int	load_map(FILE *f, t_map *map)
 {
 	char	*line = NULL;
 	size_t	n = 0;

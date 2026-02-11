@@ -9,7 +9,7 @@ int ft_atoi(char *str)
 	return (res);
 }
 
-static int	load_map_body(FILE *f, t_map *map)
+static int	store_data(FILE *f, t_map *map)
 {
 	char	*line = NULL;
 	size_t	n = 0;
@@ -36,7 +36,7 @@ static int	load_map_body(FILE *f, t_map *map)
 			return (free(line), free_map(map), 0);
 
 		for (int i = 0; i < map->col; i++)
-			if (line[i] == map->empty || line[i] == map->obs)
+			if (line[i] == map->empty || line[i] == map->obst)
 				map->data[r][i] = line[i];
 			else
 				return (free(line), free_map(map), 0);
@@ -96,5 +96,5 @@ int read_from_stdin(t_map *map)
 		fprintf(stdout, "Error: invalid map\n");
 		return (0);
 	}
-	return (store_map(stdin, map));
+	return (store_data(stdin, map));
 }
