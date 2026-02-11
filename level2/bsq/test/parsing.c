@@ -1,7 +1,7 @@
 #include "bsq.h"
 #include <sys/types.h>
 
-int atoi(char *str)
+int ft_atoi(char *str)
 {
 	int res = 0;
 	while(*str >= '0' && *str <= '9')
@@ -41,7 +41,7 @@ int read_from_argv(char *argv, t_map *map)
 		return (0);
 	if (!parse_map(fd, map) || !store_data(fd, map))
 	{
-		flose(fd);
+		fclose(fd);
 		return (0);
 	}
 	fclose(fd);
