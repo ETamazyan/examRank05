@@ -1,14 +1,13 @@
- #include "bsq.h"
+#include "bsq.h"
 
 void free_map(t_map *map)
 {
-	if (!map || !map->data)
+	if(!map || !map->data)
 		return ;
 	for(int i = 0; i < map->row; i++)
 		free(map->data[i]);
 	free(map->data);
 }
-
 void print_map(t_map *map)
 {
 	for(int i = 0; i < map->row; i++)
@@ -18,36 +17,37 @@ void print_map(t_map *map)
 int main(int argc, char **argv)
 {
 	t_map map;
-
 	map.row = 0;
 	map.col = 0;
 	map.data = NULL;
 
-	if (argc == 1)
+	if(argc == 1)
 	{
-		if (!read_from_stdin(&map))
+		if(!r_stdin(&map))
 		{
-			fprintf(stdout, "Error: invalid map\n");
+			fprintf(stderr, "Error: inv map\n");
 			return (1);
 		}
 	}
-	else if(argc == 2)
+	else if (argc == 2)
 	{
-		if (!read_from_argv(argv[1], &map))
+		if(!r_argv(argv[1], &map))
 		{
-			fprintf(stdout, "Error: invalid map\n");
+			fprintf(stderr, "Error: inv map\n");
 			return (1);
 		}
 	}
 	else
 	{
-		fprintf(stdout, "Error: invalid amount of arguments\n");
-		return (1);
+		{
+			fprintf(stderr, "Error: inv argc\n");
+			return (1);
+		}
 	}
-	if (!alg_bsq(&map))
+	if(!bsq(&map))
 	{
 		free_map(&map);
-		fprintf(stdout, "Error: malloc error\n");
+		fprintf(stderr, "Error: inv bsq\n");
 		return (1);
 	}
 	print_map(&map);

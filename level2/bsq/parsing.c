@@ -10,13 +10,6 @@ int ft_atoi(char *str)
     return res;
 }
 
-static int  fail(char *line, t_map *map)
-{
-    free(line);
-    free_map(map);
-    return (0);
-}
-
 static int	load_map(FILE *f, t_map *map)
 {
 	char	*line = NULL;
@@ -57,10 +50,10 @@ static int	load_map(FILE *f, t_map *map)
 
 static int pars_map(FILE *file, t_map *map)
 {
-    char *line = NULL;
-    size_t n = 0;
+    char *line = NULL; //not init
+    size_t n = 0; // not init
     ssize_t len = getline(&line, &n, file);
-    if (len <= 0)
+    if (len <= 0) // changed to -1
         return 0;
     if (line[len - 1] == '\n')
         line[--len] = '\0';

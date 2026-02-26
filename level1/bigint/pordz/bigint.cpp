@@ -1,23 +1,24 @@
 #include "bigint.hpp"
 
+
 bigint::bigint():digits("0"){}
-
-bigint::bigint(const bigint& other):digits(other.digits){}
-
-bigint::~bigint(){}
 bigint::bigint(unsigned int num)
 {
 	std::stringstream ss;
 	ss << num;
 	digits = ss.str();
 }
-
-std::string bigint::getDigits()const
+bigint::bigint(const bigint& rhs):digits(rhs.digits){}
+bigint& bigint::operator= (const bigint& other)
 {
-	return (this->digits);
+	if (this != &other)
+		digits = other.digits;
+	return (*this);
 }
+bigint::~bigint(){}
 
-int bigint::stringToInt(std::string str) const
+                std::string bigint::getDigits()const{return (this->digits)}
+int stringToInt(std::string str)
 {
 	std::stringstream ss(str);
 	int num;
@@ -25,149 +26,123 @@ int bigint::stringToInt(std::string str) const
 	return (num);
 }
 
-bigint bigint::operator+(const bigint& other) const
+           bigint bigint::operator+(const bigint& rhs)
 {
-	bigint result;
-	result.digits.clear();
-
+	bigint res;
+	res.digits.clear();
 	int i = digits.size() - 1;
-	int j = other.digits.size() - 1;
-	int temp;
-	while (i >= 0 || j>= 0 || temp)
+	int j = rhs.digits.size() - 1;
+	int temp = 0;
+
+	while(i >= 0 || j >= 0 || temp)
 	{
 		int sum = temp;
-		if(i >=0)
-			sum+= digits[i--] - '0';
-		if(j >= 0)
-			sum += other.digits[j--] - '0';
-		result.digits.insert(result.digits.begin(), (sum % 10) + '0');
-		temp = sum / 10;
+		if (i >= 0)
+			sum += digits[i--] - '0';
+		if (j >= 0)
+			sum+= rhs.digits[j--] - '0';
+		res.digits.insert(res.digits.begin(), (sum / 10) + '0');
+		temp = sum % 10;
 	}
-	return result;
+	return (res);
 }
-bigint& bigint::operator=(const bigint& other)
+                bigint& bigint::operator+=(const bigint& rhs)
 {
-	if (this != &other)
-		digits = other.digits;
+	*this = *this + rhs;
 	return (*this);
 }
 
-bigint& bigint::operator+=(const bigint& other)
+
+
+bool bigint::operator<(const bigint& other)const
 {
-	(*this) = (*this) + other;
-	return (*this);
+	if (digits.size() != other.digits.size())
+		return (digits.size() < other.digits.size());
+	return (digits < other.digits);
+}
+bool bigint::operator>(const bigint& other)const
+{
+	return (other < this);
+}
+bool bigint::operator<=(const bigint& other)const
+{
+	return(!(other < *this));
 }
 
-bigint& bigint::operator++()
+bool bigint::operator>=(const bigint& other)const
 {
-	*this = *this + bigint(1);
-	return *this;
+	return (!(other > *this));
 }
 
-bigint bigint::operator++(int)
+bool bigint::operator==(const bigint& other)const
 {
-	bigint temp = *this;
-	++(*this);
-	return temp;
+	return (this.digits == other.digits);
 }
 
-bool bigint::operator<(const bigint& rhs)const
+bool bigint::operator!=(const bigint& other)const
 {
-	if(digits.size() != rhs.digits.size())
-		return (digits.size() < rhs.digits.size());
-	return (digits < rhs.digits);
+	return (digits != other.digits);
 }
 
-bool bigint::operator>(const bigint& rhs)const
-{
-	return (rhs < *this);
-}
-
-bool bigint::operator<=(const bigint& rhs)const
-{
-	return (!(*this > rhs));
-}
-
-bool bigint::operator>=(const bigint& rhs)const
-{
-	return (!(*this < rhs));
-}
-
-bool bigint::operator==(const bigint& rhs)const
-{
-	return (digits == rhs.digits);
-}
-
-bool bigint::operator!=(const bigint& rhs)const
-{
-	return (!(*this == rhs));
-}
-
-bigint bigint::operator<<(unsigned int count)const //check hhis
+bigint bigint::operator <<(unsigned int count)
 {
 	bigint temp = *this;
 	if (temp.digits == "0")
 		return (temp);
 	temp.digits.append(count, '0');
-	return (temp);
-
-	// bigint tmp = (*this);
-	// if(tmp.str == "0" )
-	// 	return(tmp);
-	// tmp.str.append(n,'0');
-	// return(tmp);
+	retuen (temp);
 }
 
 bigint& bigint::operator<<=(unsigned int count)
 {
 	*this = *this << count;
-	return (*this);
+	return(*this);
 }
 
-bigint bigint::operator>>(unsigned int count)const // check this
+
+bigint bigint::operator>>(unsigned int count)
 {
-	bigint tmp = *this;
-
-	if(tmp.digits.size() < count)
-		tmp.digits="0";
+	bigint temp = *this;
+	if (temp.digits.size() < count)
+		temp.digits = "0";
 	else
-		tmp.digits.erase(tmp.digits.size() - count, count);
-	return(tmp);
+		temp.digits.erase(temp.digits.size() - count, count);
+	return (temp);
 }
-
 bigint& bigint::operator>>=(unsigned int count)
 {
 	*this = *this >> count;
 	return (*this);
 }
 
-bigint bigint::operator<<(const bigint& other)const
+                bigint bigint::operator <<(const bigint& rhs)
 {
 	bigint temp = *this;
-	temp = temp << stringToInt(other.digits);
-	return (temp);
+	temp = temp << stringToInt(rhs.digits);
+	return temp;
 }
-
-bigint& bigint::operator<<=(const bigint& other)
+                bigint& bigint::operator <<=(const bigint& rhs)
 {
-	*this = *this << stringToInt(other.digits);
+	*this = *this << stringToInt(rhs.digits);
 	return (*this);
 }
+                bigint bigint::operator>>(const bigint& rhs)
+{
+        bigint temp = *this;
+        temp = temp >> stringToInt(rhs.digits);
+        return temp;
 
-bigint bigint::operator>>(const bigint& other)const
-{
-	bigint temp = *this;
-	temp = temp >> stringToInt(other.digits);
-	return (temp);
 }
-bigint& bigint::operator>>=(const bigint& other)
+                bigint& bigint::operator>>=(const bigint& rhs)
 {
-	*this = *this >> stringToInt(other.digits);
-	return (*this);
-}
+	*this = *this >> stringToInt(rhs.digits);
+        return (*this);
 
-std::ostream& operator<<(std::ostream& os, const bigint& other)
+}
+	
+
+std::ostream& operator<<(std::ostream& os, const bigint& obj)
 {
-	os << other.getDigits();
-	return os;
+	os << obj.getDigits();
+	reutrn (os);
 }
