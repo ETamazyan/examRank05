@@ -1,41 +1,24 @@
 #include "set.hpp"
-#include "iostream"
 
-set::set(const set& other):bag(other.bag){}
+set::set(searchable_bag& bag):bag(bag){}
 
-set::set(searchable_bag& other):bag(other){}
+bool set::has(int value)const { return (bag.has(value));}
 
-set& set::operator=(const set& other)
-{
-    if(this!=&other)
-        this->bag=other.bag;
-    return(*this);
-}
-bool set::has(int value)const
-{
-    return(bag.has(value));
-}
 void set::insert(int value)
 {
-    if(!(this->has(value)))
-        bag.insert(value);
+	if(!bag.has(value))
+		bag.insert(value);
 }
-void set::insert(int* data,int value)
+void set::insert(int* data, int size)
 {
-    for(int i =0; i < value;i++)
-        this->insert(data[i]);
+	for(int i = 0; i < size; i++)
+		insert(data[i]);
 }
-void set::print()const
-{
-    bag.print();
-}
-void set::clear()
-{
-    bag.clear();
-}
-searchable_bag& set::get_bag()const
-{
-    return(this->bag);
-}
+
+void set::print()const{bag.print();}
+
+void set::clear(){bag.clear();}
+
+searchable_bag& set::get_bag()const { return (bag);}
 
 set::~set(){}
